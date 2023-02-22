@@ -1,0 +1,9 @@
+pytorch>=1.11.0
+torchsummary>=1.5.1
+torchvision>=0.12.0
+torchsummary>=1.5.1
+numpy>=1.22.3
+opencv-python>=4.5.5.64
+matplotlib>=3.5.2
+tqdm>=4.64.0
+scikit-learn>=1.0.2

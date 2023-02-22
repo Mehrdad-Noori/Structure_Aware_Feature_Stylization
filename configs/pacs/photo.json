@@ -1,0 +1,15 @@
+{
+  "data_path" : "path/to/pacs/dataset",
+  "domains" : ["art_painting", "cartoon", "photo", "sketch"],
+  "test_domain" : "photo",
+  "backbone" : "resnet18",
+  "batch_size" : 64,
+  "num_epochs" : 500,
+  "num_workers" : 5,
+  "reconstruction" : true,
+  "feature_stylization" : true,
+  "save_path": "where/to/save",
+  "lmda_value" : 0.0005,
+  "p_value" : 0.1,
+  "lr" : 0.01
+}
