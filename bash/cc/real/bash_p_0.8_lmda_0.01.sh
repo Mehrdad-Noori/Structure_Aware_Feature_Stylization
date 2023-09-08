@@ -18,7 +18,7 @@ module load opencv/4.5.5
 
 source /home/milad97/projects/def-chdesa/milad97/envs/safdg/bin/activate
 
-config_path=/home/milad97/projects/def-chdesa/milad97/safdg/configs/domainnet/template.json
+config_path=/home/milad97/projects/def-chdesa/milad97/safdg/configs/domainnet/real/config_p_0.8_lmda_0.01.json
 data_dir=$SLURM_TMPDIR/data/domain_net
 
 python main.py --config ${config_path} --data_dir ${data_dir}
