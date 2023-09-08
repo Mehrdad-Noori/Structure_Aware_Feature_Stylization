@@ -86,7 +86,7 @@ for test_domain in domains:
 
             # Generate corresponding bash script
             bash_script = BASH_TEMPLATE.format(config_filepath_in_target)
-            bash_filename = f'bash_p_{p_value}_lmda_{lmda_value}.sh'
+            bash_filename = f'{test_domain}_bash_p_{p_value}_lmda_{lmda_value}.sh'
             bash_filepath = os.path.join(domain_bash_dir, bash_filename)
             with open(bash_filepath, 'w') as bash_file:
                 bash_file.write(bash_script)
