@@ -8,6 +8,7 @@ import torch.utils.data
 import json
 from loss import DiceLoss
 
+from tqdm import tqdm
 
 def config_loader(config_path):
     with open(config_path, 'r') as f:
@@ -45,6 +46,7 @@ def create_data_loaders(image_datasets, train_domains, test_domains, batch_size=
 
 def train_model(number_of_epochs, model, train_loader, valid_loader, test_loader, model_directory, lr=0.001,
                 reconstruction=True, device='cpu', lmda=1, model_name=""):
+    
     model = model.to(device)
 
     ae_criterion = DiceLoss().to(device)
@@ -83,8 +85,8 @@ def train_model(number_of_epochs, model, train_loader, valid_loader, test_loader
         train_losses = [0., 0., 0.]  # [overall loss, first loss, second loss if reconstruction==True]
         t1 = time.time()
 
-        for i, batch in enumerate(train_loader):
-            # print(i)
+        for i, batch in enumerate(tqdm(train_loader, desc=f"Training Loop Epoch {epoch+1}/{number_of_epochs}")):
+            # print(f'iteration {i} in epoch {epoch}')
             optimizer.zero_grad()
             if reconstruction:
                 samples, canny_samples, labels = batch[0].to(device), batch[1].to(device), batch[2].to(device)
@@ -123,7 +125,7 @@ def train_model(number_of_epochs, model, train_loader, valid_loader, test_loader
         all_pred = []
         all_lb = []
 
-        for i, batch in enumerate(valid_loader):
+        for i, batch in enumerate(tqdm(valid_loader, desc=f"Validation Loop Epoch {epoch+1}/{number_of_epochs}")):
 
             with torch.no_grad():
 
@@ -156,7 +158,7 @@ def train_model(number_of_epochs, model, train_loader, valid_loader, test_loader
         all_pred = []
         all_lb = []
 
-        for i, batch in enumerate(test_loader):
+        for i, batch in enumerate(tqdm(test_loader, desc=f"Test Loop Epoch {epoch+1}/{number_of_epochs}")):
 
             with torch.no_grad():
 

@@ -12,14 +12,16 @@ def get_args_parser():
     parser = ArgumentParser('Structure-Aware Feature Stylization for Domain Generalization', add_help=False)
 
     parser.add_argument("-c", "--config", dest="config_path", metavar="config file", required=True)
+    parser.add_argument("-d", "--data_dir", dest="data_dir", metavar="data dir", required=True)
 
     return parser
 
 
-def main(config):
+def main(config, data_dir):
 
-    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-    data_path = config['data_path']
+    device = torch.device('cuda:2' if torch.cuda.is_available() else 'cpu')
+    print(device)
+    # data_path = config['data_path']
     domains = config['domains']
     test_domain = config['test_domain']
     batch_size = config['batch_size']
@@ -54,13 +56,15 @@ def main(config):
 
 
     # Creating dataloaders
-    image_datasets = {x: DGDataset(os.path.join(data_path, x), apply_transform=True, reconstruction=reconstruction)
+    image_datasets = {x: DGDataset(os.path.join(data_dir, x), apply_transform=True, reconstruction=reconstruction)
                       for x in domains}
 
     train_loader, valid_loader, test_loader, classes = create_data_loaders(image_datasets, train_domains, test_domain,
                                                                   batch_size=batch_size, num_workers=num_workers)
     num_class = len(classes)
 
+    print(f"num classes {num_class}")
+    
     # Preparing a directory to save models and results
     model_save_path = os.path.join(save_path, test_domain,
                                         "lmda_{}_p_{}".format(lmda_value, p_value))
@@ -90,6 +94,7 @@ if __name__ == '__main__':
     args = args.parse_args()
 
     config_path = args.config_path
+    data_dir = args.data_dir
     config = config_loader(config_path)
 
-    main(config)
+    main(config , data_dir)

@@ -1,0 +1,15 @@
+{
+  "data_path" : "/export/livia/home/vision/Mcheraghalikhani/datasets/domain_net",
+  "domains" : ["clipart", "infograph",  "painting",  "quickdraw",  "real",  "sketch"],
+  "test_domain" : "clipart",
+  "backbone" : "resnet18",
+  "batch_size" : 64,
+  "num_epochs" : 5,
+  "num_workers" : 5,
+  "reconstruction" : true,
+  "feature_stylization" : true,
+  "save_path": "/export/livia/home/vision/Mcheraghalikhani/projects/safdg/output/domainnet",
+  "lmda_value" : 0.0005,
+  "p_value" : 0.5,
+  "lr" : 0.01
+}

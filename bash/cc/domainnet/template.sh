@@ -1,0 +1,22 @@
+#!/bin/bash
+#SBATCH --account=rrg-ebrahimi
+#SBATCH --nodes=1
+#SBATCH --gpus-per-node=v100l:1
+#SBATCH --cpus-per-task=8
+#SBATCH --mem=30G
+#SBATCH --time=1-00:00
+
+nvidia-smi
+
+mkdir $SLURM_TMPDIR/data
+cp /home/milad97/scratch/datasets/domain.tar.gz $SLURM_TMPDIR
+tar -xf $SLURM_TMPDIR/domain.tar.gz -C $SLURM_TMPDIR/data
+
+module load python/3.10
+source /project/def-chdesa/meno/envs/vitbed2/bin/activate
+
+
+config_path=/path/to/config
+data_dir=$SLURM_TMPDIR/data
+
+python main.py --config ${config_path} --data_dir ${data_dir}
