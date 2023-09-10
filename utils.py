@@ -8,8 +8,6 @@ import torch.utils.data
 import json
 from loss import DiceLoss
 
-from tqdm import tqdm
-
 def config_loader(config_path):
     with open(config_path, 'r') as f:
         config = json.load(f)
@@ -85,7 +83,7 @@ def train_model(number_of_epochs, model, train_loader, valid_loader, test_loader
         train_losses = [0., 0., 0.]  # [overall loss, first loss, second loss if reconstruction==True]
         t1 = time.time()
 
-        for i, batch in enumerate(tqdm(train_loader, desc=f"Training Loop Epoch {epoch+1}/{number_of_epochs}")):
+        for i, batch in enumerate(train_loader):
             # print(f'iteration {i} in epoch {epoch}')
             optimizer.zero_grad()
             if reconstruction:
@@ -125,7 +123,7 @@ def train_model(number_of_epochs, model, train_loader, valid_loader, test_loader
         all_pred = []
         all_lb = []
 
-        for i, batch in enumerate(tqdm(valid_loader, desc=f"Validation Loop Epoch {epoch+1}/{number_of_epochs}")):
+        for i, batch in enumerate(valid_loader):
 
             with torch.no_grad():
 
@@ -158,7 +156,7 @@ def train_model(number_of_epochs, model, train_loader, valid_loader, test_loader
         all_pred = []
         all_lb = []
 
-        for i, batch in enumerate(tqdm(test_loader, desc=f"Test Loop Epoch {epoch+1}/{number_of_epochs}")):
+        for i, batch in enumerate(test_loader):
 
             with torch.no_grad():
 
@@ -213,13 +211,14 @@ def train_model(number_of_epochs, model, train_loader, valid_loader, test_loader
         print("Test Acc {:.5f}".format(test_accuracy))
 
         this_model_path = os.path.join(model_directory, 'model_{}.pt'.format(epoch + 1))
-        torch.save(model.state_dict(), this_model_path)
+        if epoch % 5 == 0:
+            torch.save(model.state_dict(), this_model_path)
 
-    summary_path = os.path.join(model_directory, "summary.json")
+        summary_path = os.path.join(model_directory, "summary.json")
 
-    with open(summary_path, "w") as f:
-        json.dump(summary, f)
-        f.close()
+        with open(summary_path, "w") as f:
+            json.dump(summary, f)
+            f.close()
 
     return summary
 

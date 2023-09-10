@@ -16,7 +16,7 @@ BASH_TEMPLATE = '''#!/bin/bash
 #SBATCH --gpus-per-node=v100l:1
 #SBATCH --cpus-per-task=8
 #SBATCH --mem=30G
-#SBATCH --time=0-20:00
+#SBATCH --time=1-16:00
 
 nvidia-smi
 
@@ -42,7 +42,7 @@ CONFIG_TEMPLATE = {
   "test_domain": None,
   "backbone": "resnet18",
   "batch_size": 64,
-  "num_epochs": 30,
+  "num_epochs": 50,
   "num_workers": 4,
   "reconstruction": True,
   "feature_stylization": True,

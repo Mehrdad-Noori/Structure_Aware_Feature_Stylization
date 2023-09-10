@@ -10,7 +10,7 @@
   "test_domain": "quickdraw",
   "backbone": "resnet18",
   "batch_size": 64,
-  "num_epochs": 30,
+  "num_epochs": 50,
   "num_workers": 4,
   "reconstruction": true,
   "feature_stylization": true,
