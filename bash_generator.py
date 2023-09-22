@@ -5,9 +5,9 @@ import json
 BASE_DIR = '.'
 BASE_DIR_IN_TARGET = '/home/milad97/projects/def-chdesa/milad97/safdg'
 
-BASH_DIR = os.path.join(BASE_DIR, 'bash', 'cc', )
-CONFIG_DIR = os.path.join(BASE_DIR, 'configs', 'domainnet')
-CONFIG_DIR_IN_TARGET = os.path.join(BASE_DIR_IN_TARGET, 'configs', 'domainnet')
+BASH_DIR = os.path.join(BASE_DIR, 'bash', 'resnet-50', 'domainnet' )
+CONFIG_DIR = os.path.join(BASE_DIR, 'configs', 'resnet-50', 'domainnet')
+CONFIG_DIR_IN_TARGET = os.path.join(BASE_DIR_IN_TARGET, 'configs',  'resnet-50' ,'domainnet')
 
 # Bash script template
 BASH_TEMPLATE = '''#!/bin/bash
@@ -40,8 +40,8 @@ python main.py --config ${{config_path}} --data_dir ${{data_dir}}
 CONFIG_TEMPLATE = {
   "domains": ["clipart", "infograph", "painting", "quickdraw", "real", "sketch"],
   "test_domain": None,
-  "backbone": "resnet18",
-  "batch_size": 64,
+  "backbone": "resnet50",
+  "batch_size": 32,
   "num_epochs": 50,
   "num_workers": 4,
   "reconstruction": True,
@@ -57,8 +57,8 @@ os.makedirs(BASH_DIR, exist_ok=True)
 os.makedirs(CONFIG_DIR, exist_ok=True)
 
 # Values for loop
-p_values = [0.1, 0.3, 0.5, 0.8]
-lmda_values = [0.0005, 0.001, 0.002, 0.01, 0.05, 0.1, 0.2]
+p_values = [0.1]
+lmda_values = [0.2]
 domains = CONFIG_TEMPLATE["domains"]
 
 for test_domain in domains:
