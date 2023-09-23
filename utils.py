@@ -8,6 +8,8 @@ import torch.utils.data
 import json
 from loss import DiceLoss
 
+from tqdm import tqdm
+
 def config_loader(config_path):
     with open(config_path, 'r') as f:
         config = json.load(f)
@@ -83,7 +85,7 @@ def train_model(number_of_epochs, model, train_loader, valid_loader, test_loader
         train_losses = [0., 0., 0.]  # [overall loss, first loss, second loss if reconstruction==True]
         t1 = time.time()
 
-        for i, batch in enumerate(train_loader):
+        for i, batch in tqdm ( enumerate(train_loader), total= len(train_loader) ,desc="Training Loop: " ) :
             # print(f'iteration {i} in epoch {epoch}')
             optimizer.zero_grad()
             if reconstruction:
@@ -123,7 +125,7 @@ def train_model(number_of_epochs, model, train_loader, valid_loader, test_loader
         all_pred = []
         all_lb = []
 
-        for i, batch in enumerate(valid_loader):
+        for i, batch in tqdm( enumerate(valid_loader), total = len(valid_loader), desc="Validation Loop: "):
 
             with torch.no_grad():
 
@@ -156,7 +158,7 @@ def train_model(number_of_epochs, model, train_loader, valid_loader, test_loader
         all_pred = []
         all_lb = []
 
-        for i, batch in enumerate(test_loader):
+        for i, batch in tqdm( enumerate(test_loader), total=len(test_loader), desc="Test Loop: " ) :
 
             with torch.no_grad():
 
