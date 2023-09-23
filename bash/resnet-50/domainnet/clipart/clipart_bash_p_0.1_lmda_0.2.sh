@@ -4,7 +4,7 @@
 #SBATCH --gpus-per-node=v100l:1
 #SBATCH --cpus-per-task=8
 #SBATCH --mem=30G
-#SBATCH --time=0-01:00
+#SBATCH --time=1-20:00
 
 nvidia-smi
 

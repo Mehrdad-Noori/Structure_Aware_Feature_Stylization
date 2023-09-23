@@ -1,8 +1,8 @@
 import os
 
 # Base paths
-bash_base_path = "./bash/cc"
-output_base_path = "./output/domainnet"
+bash_base_path = "./bash/resnet-50/domainnet"
+output_base_path = "./output/resnet-50/domainnet"
 
 # List of domain names
 # Assuming domain names are subdirectories in the bash_base_path

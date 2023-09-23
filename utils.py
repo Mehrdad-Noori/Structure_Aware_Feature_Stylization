@@ -85,7 +85,7 @@ def train_model(number_of_epochs, model, train_loader, valid_loader, test_loader
         train_losses = [0., 0., 0.]  # [overall loss, first loss, second loss if reconstruction==True]
         t1 = time.time()
 
-        for i, batch in tqdm ( enumerate(train_loader), total= len(train_loader) ,desc="Training Loop: " ) :
+        for i, batch in enumerate(train_loader):
             # print(f'iteration {i} in epoch {epoch}')
             optimizer.zero_grad()
             if reconstruction:
@@ -125,7 +125,7 @@ def train_model(number_of_epochs, model, train_loader, valid_loader, test_loader
         all_pred = []
         all_lb = []
 
-        for i, batch in tqdm( enumerate(valid_loader), total = len(valid_loader), desc="Validation Loop: "):
+        for i, batch in enumerate(valid_loader):
 
             with torch.no_grad():
 
@@ -158,7 +158,7 @@ def train_model(number_of_epochs, model, train_loader, valid_loader, test_loader
         all_pred = []
         all_lb = []
 
-        for i, batch in tqdm( enumerate(test_loader), total=len(test_loader), desc="Test Loop: " ) :
+        for i, batch in enumerate(test_loader) :
 
             with torch.no_grad():
 
