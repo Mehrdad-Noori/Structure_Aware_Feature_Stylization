@@ -46,7 +46,7 @@ CONFIG_TEMPLATE = {
   "num_workers": 4,
   "reconstruction": False,
   "feature_stylization": False,
-  "save_path": "/home/milad97/projects/def-chdesa/milad97/safdg/output/resnet-50/domainnet",
+  "save_path": "/home/milad97/projects/def-chdesa/milad97/safdg/output/resnet-50/domainnet/baseline",
   "lmda_value": None,
   "p_value": None,
   "lr": None
