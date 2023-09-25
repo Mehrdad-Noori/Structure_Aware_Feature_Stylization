@@ -5,9 +5,9 @@ import json
 BASE_DIR = '.'
 BASE_DIR_IN_TARGET = '/home/milad97/projects/def-chdesa/milad97/safdg'
 
-BASH_DIR = os.path.join(BASE_DIR, 'bash', 'resnet-50', 'domainnet' )
-CONFIG_DIR = os.path.join(BASE_DIR, 'configs', 'resnet-50', 'domainnet')
-CONFIG_DIR_IN_TARGET = os.path.join(BASE_DIR_IN_TARGET, 'configs',  'resnet-50' ,'domainnet')
+BASH_DIR = os.path.join(BASE_DIR, 'bash', 'resnet-50', 'domainnet', 'baseline')
+CONFIG_DIR = os.path.join(BASE_DIR, 'configs', 'resnet-50', 'domainnet', 'baseline')
+CONFIG_DIR_IN_TARGET = os.path.join(BASE_DIR_IN_TARGET, 'configs',  'resnet-50' ,'domainnet', 'baseline')
 
 # Bash script template
 BASH_TEMPLATE = '''#!/bin/bash
@@ -49,7 +49,7 @@ CONFIG_TEMPLATE = {
   "save_path": "/home/milad97/projects/def-chdesa/milad97/safdg/output/resnet-50/domainnet",
   "lmda_value": None,
   "p_value": None,
-  "lr": 0.01
+  "lr": None
 }
 
 # Make directories
@@ -59,36 +59,39 @@ os.makedirs(CONFIG_DIR, exist_ok=True)
 # Values for loop
 p_values = [0]
 lmda_values = [0]
+lrs = [0.001, 0.0001, 0.00001]
 domains = CONFIG_TEMPLATE["domains"]
 
 for test_domain in domains:
     for p_value in p_values:
         for lmda_value in lmda_values:
-            # Update configuration template
-            config = CONFIG_TEMPLATE.copy()
-            config['p_value'] = p_value
-            config['lmda_value'] = lmda_value
-            config['test_domain'] = test_domain
+            for lr in lrs:
+                # Update configuration template
+                config = CONFIG_TEMPLATE.copy()
+                config['p_value'] = p_value
+                config['lmda_value'] = lmda_value
+                config['test_domain'] = test_domain
+                config['lr'] = lr
 
-            # Create specific directories for the test domain
-            domain_config_dir = os.path.join(CONFIG_DIR, test_domain)
-            domain_config_dir_in_target = os.path.join(CONFIG_DIR_IN_TARGET, test_domain)
-            domain_bash_dir = os.path.join(BASH_DIR, test_domain)
-            os.makedirs(domain_config_dir, exist_ok=True)
-            os.makedirs(domain_bash_dir, exist_ok=True)
+                # Create specific directories for the test domain
+                domain_config_dir = os.path.join(CONFIG_DIR, test_domain)
+                domain_config_dir_in_target = os.path.join(CONFIG_DIR_IN_TARGET, test_domain)
+                domain_bash_dir = os.path.join(BASH_DIR, test_domain)
+                os.makedirs(domain_config_dir, exist_ok=True)
+                os.makedirs(domain_bash_dir, exist_ok=True)
 
-            # Save configuration to file
-            config_filename = f'config_p_{p_value}_lmda_{lmda_value}.json'
-            config_filepath = os.path.join(domain_config_dir, config_filename)
-            config_filepath_in_target = os.path.join(domain_config_dir_in_target, config_filename)
-            with open(config_filepath, 'w') as config_file:
-                json.dump(config, config_file, indent=2)
+                # Save configuration to file
+                config_filename = f'config_p_{p_value}_lmda_{lmda_value}_lr_{lr}.json'
+                config_filepath = os.path.join(domain_config_dir, config_filename)
+                config_filepath_in_target = os.path.join(domain_config_dir_in_target, config_filename)
+                with open(config_filepath, 'w') as config_file:
+                    json.dump(config, config_file, indent=2)
 
-            # Generate corresponding bash script
-            bash_script = BASH_TEMPLATE.format(config_filepath_in_target)
-            bash_filename = f'{test_domain}_bash_p_{p_value}_lmda_{lmda_value}.sh'
-            bash_filepath = os.path.join(domain_bash_dir, bash_filename)
-            with open(bash_filepath, 'w') as bash_file:
-                bash_file.write(bash_script)
+                # Generate corresponding bash script
+                bash_script = BASH_TEMPLATE.format(config_filepath_in_target)
+                bash_filename = f'{test_domain}_bash_p_{p_value}_lmda_{lmda_value}_lr_{lr}.sh'
+                bash_filepath = os.path.join(domain_bash_dir, bash_filename)
+                with open(bash_filepath, 'w') as bash_file:
+                    bash_file.write(bash_script)
 
 print("Files generated!")
