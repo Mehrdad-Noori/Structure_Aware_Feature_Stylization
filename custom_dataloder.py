@@ -8,7 +8,6 @@ from torchvision.datasets.folder import make_dataset, find_classes, IMG_EXTENSIO
 
 from typing import Callable, Dict, List, Optional, Tuple
 
-
 class DGDataset(VisionDataset):
 
     def __init__(self, root, apply_transform=False, reconstruction=False):
@@ -103,24 +102,43 @@ class DGDataset(VisionDataset):
         edges = transformer(edges)
         return edges
 
+    # @staticmethod
+    # def custom_transform(image):
+    #     # Resize2
+    #     resize = transforms.Resize(size=(256, 256))
+    #     image = resize(image)
+    #     # Random crop
+    #     i, j, h, w = transforms.RandomCrop.get_params(
+    #         image, output_size=(224, 224))
+    #     image = F.crop(image, i, j, h, w)
+
+    #     # Random horizontal flipping
+    #     if random.random() > 0.5:
+    #         image = F.hflip(image)
+
+    #     return image
+    
     @staticmethod
     def custom_transform(image):
-        # Resize2
-        resize = transforms.Resize(size=(256, 256))
-        image = resize(image)
-        # Random crop
-        i, j, h, w = transforms.RandomCrop.get_params(
-            image, output_size=(224, 224))
-        image = F.crop(image, i, j, h, w)
-
-        # Random horizontal flipping
-        if random.random() > 0.5:
-            image = F.hflip(image)
-
+        
+        # Define the transformation pipeline
+        augment_transform = transforms.Compose([
+            transforms.RandomResizedCrop(224, scale=(0.7, 1.0)),
+            transforms.RandomHorizontalFlip(),
+            transforms.ColorJitter(0.3, 0.3, 0.3, 0.3),
+            transforms.RandomGrayscale(),
+            transforms.Normalize(
+                mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
+        ])
+        
+        # Apply transformations
+        image = augment_transform(image)
         return image
-
+    
+    
     @staticmethod
     def custom_transform_val(image):
+
         # Resize2
         resize = transforms.Resize(size=(256, 256))
         ccrop = transforms.CenterCrop(size=(224, 224))

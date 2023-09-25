@@ -225,27 +225,3 @@ def train_model(number_of_epochs, model, train_loader, valid_loader, test_loader
     return summary
 
 
-def draw_summary(summary_path):
-    with open(summary_path) as json_file:
-        summary = json.load(json_file)
-        json_file.close()
-
-    # print(summary)
-    train_loss = summary['train']['total']
-    val_loss = summary['val']['total']
-    val_accuracy = summary['val']['accuracy']
-
-    fig, ax = plt.subplots(2, 1, sharex=True)
-    ax[0].set_title("losses")
-    ax[0].set(xlabel='n_epoch', ylabel='loss')
-    ax[0].plot(train_loss, label="train loss")
-
-    ax[0].plot(val_loss, label="validation loss")
-    ax[0].legend()
-
-    ax[1].set_title("validation accuracy")
-    ax[1].set(xlabel='n_epoch', ylabel='accuracy')
-    ax[1].plot(val_accuracy)
-
-    plt.subplots_adjust(wspace=1, hspace=1)
-    plt.show()

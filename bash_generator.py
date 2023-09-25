@@ -44,8 +44,8 @@ CONFIG_TEMPLATE = {
   "batch_size": 32,
   "num_epochs": 40,
   "num_workers": 4,
-  "reconstruction": True,
-  "feature_stylization": True,
+  "reconstruction": False,
+  "feature_stylization": False,
   "save_path": "/home/milad97/projects/def-chdesa/milad97/safdg/output/resnet-50/domainnet",
   "lmda_value": None,
   "p_value": None,
@@ -57,8 +57,8 @@ os.makedirs(BASH_DIR, exist_ok=True)
 os.makedirs(CONFIG_DIR, exist_ok=True)
 
 # Values for loop
-p_values = [0.1, 0.3, 0.5, 0.8]
-lmda_values = [0.002, 0.01, 0.05, 0.2, 1.0 , 2.0]
+p_values = [0]
+lmda_values = [0]
 domains = CONFIG_TEMPLATE["domains"]
 
 for test_domain in domains:

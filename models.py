@@ -69,15 +69,15 @@ class ResNetEncoder(nn.Module):
     def __init__(self, arch, pretrained=True, feature_stylization=False, p=0.5):
         super(ResNetEncoder, self).__init__()
         if arch == 'resnet18':
-            self.base_model = models.resnet18(pretrained=pretrained)
+            self.base_model = models.resnet18(weights='ResNet18_Weights.DEFAULT')
         elif arch == 'resnet34':
-            self.base_model = models.resnet34(pretrained=pretrained)
+            self.base_model = models.resnet34(weights='ResNet34_Weights.DEFAULT')
         elif arch == 'resnet50':
-            self.base_model = models.resnet50(pretrained=pretrained)
+            self.base_model = models.resnet50(weights='ResNet50_Weights.DEFAULT')
         elif arch == 'resnet101':
-            self.base_model = models.resnet101(pretrained=pretrained)
+            self.base_model = models.resnet101(weights='ResNet101_Weights.DEFAULT')
         elif arch == 'resnet152':
-            self.base_model = models.resnet152(pretrained=pretrained)
+            self.base_model = models.resnet152(weights='ResNe152_Weights.DEFAULT')
         else:
             raise ValueError("Undefined model")
 
