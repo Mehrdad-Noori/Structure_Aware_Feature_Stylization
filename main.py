@@ -67,7 +67,7 @@ def main(config, data_dir):
     
     # Preparing a directory to save models and results
     model_save_path = os.path.join(save_path, test_domain,
-                                        "lmda_{}_p_{}_lr_{}".format(lmda_value, p_value, lr))
+                                        "lmda_{}_p_{}".format(lmda_value, p_value, lr))
 
     if not os.path.isdir(model_save_path):
         os.makedirs(model_save_path)
@@ -83,7 +83,7 @@ def main(config, data_dir):
                           model_directory=model_save_path,
                           lr=lr,
                           reconstruction=reconstruction,
-                          device=device, lmda=lmda_value, model_name="lmda_{}_p_{}_lr_{}".format(lmda_value, p_value, lr))
+                          device=device, lmda=lmda_value, model_name="lmda_{}_p_{}".format(lmda_value, p_value, lr))
 
 
 

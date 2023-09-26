@@ -12,10 +12,10 @@
   "batch_size": 32,
   "num_epochs": 40,
   "num_workers": 4,
-  "reconstruction": true,
-  "feature_stylization": true,
-  "save_path": "/home/milad97/projects/def-chdesa/milad97/safdg/output/resnet-50/domainnet",
+  "reconstruction": false,
+  "feature_stylization": false,
+  "save_path": "/home/milad97/projects/def-chdesa/milad97/safdg/output/resnet-50/domainnet/",
   "lmda_value": 0.002,
   "p_value": 0.5,
-  "lr": 0.01
+  "lr": 0.001
 }

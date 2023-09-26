@@ -2,7 +2,7 @@ import os
 
 # Directory paths
 BASE_DIR = '.'
-BASH_DIR = os.path.join(BASE_DIR, 'bash', 'resnet-50', 'domainnet', 'baseline')
+BASH_DIR = os.path.join(BASE_DIR, 'bash', 'resnet-50', 'domainnet')
 
 # List of domains
 domains = ["clipart", "infograph", "painting", "quickdraw", "real", "sketch"]
