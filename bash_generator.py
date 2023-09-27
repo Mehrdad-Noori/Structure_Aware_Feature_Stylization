@@ -49,7 +49,7 @@ CONFIG_TEMPLATE = {
   "save_path": "/home/milad97/projects/def-chdesa/milad97/safdg/output/resnet-50/domainnet/",
   "lmda_value": None,
   "p_value": None,
-  "lr": 0.001
+  "lr": 0.0001
 }
 
 # Make directories
@@ -57,8 +57,12 @@ os.makedirs(BASH_DIR, exist_ok=True)
 os.makedirs(CONFIG_DIR, exist_ok=True)
 
 # Values for loop
-p_values = [0.1, 0.3, 0.5, 0.8]
-lmda_values = [0.002, 0.01, 0.05, 0.2, 1.0, 2.0]
+# p_values = [0.1, 0.3, 0.5, 0.8]
+# lmda_values = [0.002, 0.01, 0.05, 0.2, 1.0, 2.0]
+
+p_values = [0]
+lmda_values = [0]
+
 domains = CONFIG_TEMPLATE["domains"]
 
 for test_domain in domains:
