@@ -16,7 +16,7 @@ BASH_TEMPLATE = '''#!/bin/bash
 #SBATCH --gpus-per-node=v100l:1
 #SBATCH --cpus-per-task=8
 #SBATCH --mem=30G
-#SBATCH --time=1-20:00
+#SBATCH --time=1-00:00
 
 nvidia-smi
 
@@ -42,7 +42,7 @@ CONFIG_TEMPLATE = {
   "test_domain": None,
   "backbone": "resnet50",
   "batch_size": 32,
-  "num_epochs": 40,
+  "num_epochs": 25,
   "num_workers": 4,
   "reconstruction": True,
   "feature_stylization": True,
@@ -57,11 +57,11 @@ os.makedirs(BASH_DIR, exist_ok=True)
 os.makedirs(CONFIG_DIR, exist_ok=True)
 
 # Values for loop
-# p_values = [0.1, 0.3, 0.5, 0.8]
-# lmda_values = [0.002, 0.01, 0.05, 0.2, 1.0, 2.0]
+p_values = [0.1, 0.3, 0.5, 0.8]
+lmda_values = [0.002, 0.01, 0.05, 0.2, 1.0, 2.0]
 
-p_values = [0]
-lmda_values = [0]
+# p_values = [0]
+# lmda_values = [0]
 
 domains = CONFIG_TEMPLATE["domains"]
 
