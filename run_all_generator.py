@@ -2,10 +2,10 @@ import os
 
 # Directory paths
 BASE_DIR = '.'
-BASH_DIR = os.path.join(BASE_DIR, 'bash', 'resnet-50', 'domainnet')
+BASH_DIR = os.path.join(BASE_DIR, 'bash', 'resnet-50', 'vlcs')
 
 # List of domains
-domains = ["clipart", "infograph", "painting", "quickdraw", "real", "sketch"]
+domains = ["Caltech101", "LabelMe",  "SUN09",  "VOC2007"]
 
 # Loop over each domain
 for test_domain in domains:
