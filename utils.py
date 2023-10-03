@@ -213,7 +213,7 @@ def train_model(number_of_epochs, model, train_loader, valid_loader, test_loader
         print("Test Acc {:.5f}".format(test_accuracy))
 
         this_model_path = os.path.join(model_directory, 'model_{}.pt'.format(epoch + 1))
-        if epoch % 5 == 0:
+        if epoch % 100 == 0:
             torch.save(model.state_dict(), this_model_path)
 
         summary_path = os.path.join(model_directory, "summary.json")

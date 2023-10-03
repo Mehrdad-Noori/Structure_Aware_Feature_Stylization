@@ -8,7 +8,7 @@
   "test_domain": "Caltech101",
   "backbone": "resnet50",
   "batch_size": 32,
-  "num_epochs": 30,
+  "num_epochs": 300,
   "num_workers": 4,
   "reconstruction": false,
   "feature_stylization": false,

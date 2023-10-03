@@ -42,7 +42,7 @@ CONFIG_TEMPLATE = {
   "test_domain": None,
   "backbone": "resnet50",
   "batch_size": 32,
-  "num_epochs": 30,
+  "num_epochs": 300,
   "num_workers": 4,
   "reconstruction": False,
   "feature_stylization": False,
