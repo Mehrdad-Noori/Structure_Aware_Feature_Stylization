@@ -16,7 +16,7 @@ BASH_TEMPLATE = '''#!/bin/bash
 #SBATCH --gpus-per-node=v100l:1
 #SBATCH --cpus-per-task=8
 #SBATCH --mem=30G
-#SBATCH --time=0-18:00
+#SBATCH --time=0-23:00
 
 nvidia-smi
 
@@ -42,14 +42,14 @@ CONFIG_TEMPLATE = {
   "test_domain": None,
   "backbone": "resnet50",
   "batch_size": 32,
-  "num_epochs": 300,
+  "num_epochs": 400,
   "num_workers": 4,
-  "reconstruction": False,
-  "feature_stylization": False,
+  "reconstruction": True,
+  "feature_stylization": True,
   "save_path": "/home/milad97/projects/def-chdesa/milad97/safdg/output/resnet-50/vlcs/",
   "lmda_value": None,
   "p_value": None,
-  "lr": None
+  "lr": 0.00001
 }
 
 # Make directories
@@ -57,25 +57,22 @@ os.makedirs(BASH_DIR, exist_ok=True)
 os.makedirs(CONFIG_DIR, exist_ok=True)
 
 # Values for loop
-# p_values = [0.1, 0.3, 0.5, 0.8]
-# lmda_values = [0.002, 0.01, 0.05, 0.2, 1.0, 2.0]
+p_values = [0.1, 0.3, 0.5, 0.8]
+lmda_values = [0.01, 0.05, 0.2, 1.0]
 
-p_values = [0]
-lmda_values = [0]
-lrs = [0.01, 0.001, 0.0001, 0.00001]
+# p_values = [0]
+# lmda_values = [0]
 
 domains = CONFIG_TEMPLATE["domains"]
 
 for test_domain in domains:
     for p_value in p_values:
         for lmda_value in lmda_values:
-            for lr in lrs:
                 # Update configuration template
                 config = CONFIG_TEMPLATE.copy()
                 config['p_value'] = p_value
                 config['lmda_value'] = lmda_value
                 config['test_domain'] = test_domain
-                config['lr'] = lr
 
                 # Create specific direc`tories for the test domain
                 domain_config_dir = os.path.join(CONFIG_DIR, test_domain)
@@ -85,7 +82,7 @@ for test_domain in domains:
                 os.makedirs(domain_bash_dir, exist_ok=True)
 
                 # Save configuration to file
-                config_filename = f'config_p_{p_value}_lmda_{lmda_value}_lr_{lr}.json'
+                config_filename = f'config_p_{p_value}_lmda_{lmda_value}.json'
                 config_filepath = os.path.join(domain_config_dir, config_filename)
                 config_filepath_in_target = os.path.join(domain_config_dir_in_target, config_filename)
                 with open(config_filepath, 'w') as config_file:
@@ -93,7 +90,7 @@ for test_domain in domains:
 
                 # Generate corresponding bash script
                 bash_script = BASH_TEMPLATE.format(config_filepath_in_target)
-                bash_filename = f'{test_domain}_bash_p_{p_value}_lmda_{lmda_value}_{lr}.sh'
+                bash_filename = f'{test_domain}_bash_p_{p_value}_lmda_{lmda_value}.sh'
                 bash_filepath = os.path.join(domain_bash_dir, bash_filename)
                 with open(bash_filepath, 'w') as bash_file:
                     bash_file.write(bash_script)

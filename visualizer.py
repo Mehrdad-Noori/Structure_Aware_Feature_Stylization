@@ -24,20 +24,38 @@ def draw_summary(summary_path, output_path):
     val_accuracy = summary['val']['accuracy']
     test_accuracy = summary['test']['accuracy']
 
-    fig, ax = plt.subplots(3, 1, sharex=True)
-    ax[0].set_title("losses")
-    ax[0].set(xlabel='n_epoch', ylabel='loss')
+    print(f'max test acc for {summary_path} is :{max(test_accuracy)} in epoch {test_accuracy.index(max(test_accuracy))}')
+    print(f'max val acc for {summary_path} is :{max(val_accuracy)} in epoch {val_accuracy.index(max(val_accuracy))}')
     
-    ax[0].plot(train_loss, label="train loss")
-    ax[0].plot(val_loss, label="validation loss")
-    ax[0].plot(test_loss, label="test loss")
+    fig, ax = plt.subplots(3, 1, sharex=True)
+    # ax[0].set_title("losses")
+    # ax[0].set(xlabel='n_epoch', ylabel='loss')
+    
+    # # ax[0].plot(train_loss, label="train loss")
+    # # ax[0].plot(val_loss, label="validation loss")
+    # ax[0].plot(test_loss, label="test loss")
+    
+    # ax[0].legend()
+    
+    set = 'test'
+    set_loss = summary[set]['total']
+    set_cls_loss = summary[set]['classification']
+    set_rec_loss = summary[set]['reconstruction']
+    
+    ax[0].set_title(f'{set} loss')
+    
+    ax[0].plot(set_loss, label = 'total')
+    # ax[2].plot(set_cls_loss, label = 'cls')
+    # ax[2].plot(set_rec_loss, label = 'rec')
     
     ax[0].legend()
+    
+    
 # 
-    ax[1].set_title("validation accuracy")
+    ax[1].set_title("accuracy")
     ax[1].set(xlabel='n_epoch', ylabel='accuracy')
     
-    ax[1].plot(val_accuracy, label = 'val acc')
+    # ax[1].plot(val_accuracy, label = 'val acc')
     ax[1].plot(test_accuracy, label = 'test acc')
     
     ax[1].legend()
@@ -51,10 +69,15 @@ def draw_summary(summary_path, output_path):
     ax[2].set_title(f'{set} loss')
     
     ax[2].plot(set_loss, label = 'total')
-    ax[2].plot(set_cls_loss, label = 'cls')
-    ax[2].plot(set_rec_loss, label = 'rec')
+    # ax[2].plot(set_cls_loss, label = 'cls')
+    # ax[2].plot(set_rec_loss, label = 'rec')
     
     ax[2].legend()
+    
+    # ax[0].set_xlim([50, None])  # This will start the y-axis at 50 and let the y-axis maximum be determined by the data
+    # ax[1].set_xlim([50, None]) 
+    # ax[2].set_xlim([50, None])
+    # ax[2].set_ylim([None, 0.4])
     
     plt.subplots_adjust(wspace=1, hspace=1)
     plt.savefig (output_path)
@@ -143,12 +166,12 @@ def draw_rec (model_path, config_path, data_dir, out_dir):
 data_dir = '/export/livia/home/vision/Mcheraghalikhani/datasets/domain_net'
 config_path = './configs/resnet-50/domainnet/clipart/config_p_0.1_lmda_1.0.json'
 
-file_name ='clip_50'
+file_name ='5'
 
 model_path = f'./output/{file_name}.pt'
 summary_path = f'./output/{file_name}.json'
 output_path =f'./output/{file_name}.jpg'
 
-# draw_summary(summary_path=summary_path, output_path=output_path)
+draw_summary(summary_path=summary_path, output_path=output_path)
 
-draw_rec(model_path=model_path, config_path=config_path, data_dir=data_dir, out_dir='./output')
+# draw_rec(model_path=model_path, config_path=config_path, data_dir=data_dir, out_dir='./output')
