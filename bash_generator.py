@@ -75,7 +75,8 @@ for test_domain in domains:
                 config['p_value'] = p_value
                 config['lmda_value'] = lmda_value
                 config['test_domain'] = test_domain
-
+                config['lr'] = lr
+                
                 # Create specific direc`tories for the test domain
                 domain_config_dir = os.path.join(CONFIG_DIR, test_domain)
                 domain_config_dir_in_target = os.path.join(CONFIG_DIR_IN_TARGET, test_domain)
