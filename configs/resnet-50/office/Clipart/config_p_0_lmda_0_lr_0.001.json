@@ -15,5 +15,5 @@
   "save_path": "/home/milad97/projects/def-chdesa/milad97/safdg/output/resnet-50/office/",
   "lmda_value": 0,
   "p_value": 0,
-  "lr": null
+  "lr": 0.001
 }
