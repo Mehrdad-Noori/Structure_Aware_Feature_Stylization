@@ -166,7 +166,7 @@ def draw_rec (model_path, config_path, data_dir, out_dir):
 data_dir = '/export/livia/home/vision/Mcheraghalikhani/datasets/domain_net'
 config_path = './configs/resnet-50/domainnet/clipart/config_p_0.1_lmda_1.0.json'
 
-file_name ='5'
+file_name ='c5'
 
 model_path = f'./output/{file_name}.pt'
 summary_path = f'./output/{file_name}.json'
