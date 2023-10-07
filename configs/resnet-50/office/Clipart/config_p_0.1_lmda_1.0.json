@@ -3,7 +3,7 @@
     "Art",
     "Clipart",
     "Product",
-    "Real World"
+    "Real"
   ],
   "test_domain": "Clipart",
   "backbone": "resnet50",

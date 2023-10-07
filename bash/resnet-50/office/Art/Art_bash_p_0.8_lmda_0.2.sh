@@ -9,8 +9,8 @@
 nvidia-smi
 
 mkdir $SLURM_TMPDIR/data
-cp /home/milad97/scratch/datasets/office.tar.gz $SLURM_TMPDIR
-tar -xf $SLURM_TMPDIR/office.tar.gz -C $SLURM_TMPDIR/data
+cp /home/milad97/scratch/datasets/office2.tar.gz $SLURM_TMPDIR
+tar -xf $SLURM_TMPDIR/office2.tar.gz -C $SLURM_TMPDIR/data
 
 module load python/3.10
 module load StdEnv/2020 gcc/9.3.0 cuda/11.4

@@ -5,7 +5,7 @@ BASE_DIR = '.'
 BASH_DIR = os.path.join(BASE_DIR, 'bash', 'resnet-50', 'office')
 
 # List of domains
-domains = ["Art", "Clipart",  "Product",  "Real World"]
+domains = ["Art", "Clipart",  "Product",  "Real"]
 # Loop over each domain
 for test_domain in domains:
     # Path for the domain-specific bash files
